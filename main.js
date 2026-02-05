@@ -1,40 +1,73 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const horoscopeSelect = document.getElementById('horoscope-select');
+    const getLuckyColourBtn = document.getElementById('get-lucky-colour-btn');
+    const resultContainer = document.getElementById('result-container');
 
-class TotoGenerator extends HTMLElement {
-  constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
+    const luckyHoroscopeData = {
+        aries: {
+            color: 'Red',
+            explanation: 'Red symbolizes passion and energy, bringing you good fortune and courage to tackle challenges today.'
+        },
+        taurus: {
+            color: 'Green',
+            explanation: 'Green represents growth and harmony, promoting stability and prosperity in your endeavors.'
+        },
+        gemini: {
+            color: 'Yellow',
+            explanation: 'Yellow signifies joy and intellect, enhancing your communication and bringing bright ideas.'
+        },
+        cancer: {
+            color: 'Silver',
+            explanation: 'Silver reflects intuition and emotional balance, guiding you through the day with peace and clarity.'
+        },
+        leo: {
+            color: 'Gold',
+            explanation: 'Gold denotes success and generosity, amplifying your confidence and leadership qualities.'
+        },
+        virgo: {
+            color: 'Navy Blue',
+            explanation: 'Navy Blue represents wisdom and efficiency, supporting your analytical skills and attention to detail.'
+        },
+        libra: {
+            color: 'Pink',
+            explanation: 'Pink symbolizes love and partnership, fostering harmonious relationships and aesthetic appreciation.'
+        },
+        scorpio: {
+            color: 'Black',
+            explanation: 'Black signifies transformation and depth, empowering you with resilience and intense focus.'
+        },
+        sagittarius: {
+            color: 'Purple',
+            explanation: 'Purple inspires spirituality and adventure, broadening your horizons and bringing good luck on journeys.'
+        },
+        capricorn: {
+            color: 'Brown',
+            explanation: 'Brown indicates stability and practicality, grounding your efforts and helping you build solid foundations.'
+        },
+        aquarius: {
+            color: 'Electric Blue',
+            explanation: 'Electric Blue stands for innovation and freedom, sparking new ideas and connecting you with like-minded individuals.'
+        },
+        pisces: {
+            color: 'Sea Green',
+            explanation: 'Sea Green embodies healing and compassion, enhancing your empathy and creative flow.'
+        }
+    };
 
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'toto-generator');
-
-    const numbersContainer = document.createElement('div');
-    numbersContainer.setAttribute('class', 'numbers');
-
-    const button = document.createElement('button');
-    button.textContent = 'Generate Numbers';
-    button.addEventListener('click', () => this.generateNumbers(numbersContainer));
-
-    shadow.appendChild(wrapper);
-    wrapper.appendChild(numbersContainer);
-    wrapper.appendChild(button);
-
-    this.generateNumbers(numbersContainer);
-  }
-
-  generateNumbers(container) {
-    const numbers = new Set();
-    while (numbers.size < 6) {
-      numbers.add(Math.floor(Math.random() * 49) + 1);
-    }
-
-    container.innerHTML = '';
-    [...numbers].sort((a, b) => a - b).forEach(number => {
-      const numberElement = document.createElement('div');
-      numberElement.setAttribute('class', 'number');
-      numberElement.textContent = number;
-      container.appendChild(numberElement);
+    getLuckyColourBtn.addEventListener('click', () => {
+        const selectedHoroscope = horoscopeSelect.value;
+        if (selectedHoroscope && luckyHoroscopeData[selectedHoroscope]) {
+            displayLuckyColour(selectedHoroscope, luckyHoroscopeData[selectedHoroscope]);
+        } else {
+            resultContainer.innerHTML = '<p>Please select your horoscope.</p>';
+        }
     });
-  }
-}
 
-customElements.define('toto-generator', TotoGenerator);
+    function displayLuckyColour(horoscope, data) {
+        resultContainer.innerHTML = `
+            <h3>Lucky Colour for ${horoscope.charAt(0).toUpperCase() + horoscope.slice(1)}</h3>
+            <p><strong>Colour:</strong> <span style="color: ${data.color.toLowerCase()};">${data.color}</span></p>
+            <p><strong>Explanation:</strong> ${data.explanation}</p>
+        `;
+    }
+});
