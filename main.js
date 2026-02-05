@@ -3,6 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const getLuckyColourBtn = document.getElementById('get-lucky-colour-btn');
     const resultContainer = document.getElementById('result-container');
 
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Load saved theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        body.setAttribute('data-theme', savedTheme);
+    }
+
+    themeToggleButton.addEventListener('click', () => {
+        let currentTheme = body.getAttribute('data-theme');
+        let newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
     const luckyHoroscopeData = {
         aries: {
             color: 'Red',

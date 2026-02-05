@@ -1,7 +1,35 @@
+:root {
+  --background-color-light: #f0f2f5;
+  --text-color-light: #333;
+  --primary-color-light: #4CAF50;
+  --white-light: #fff;
+  --shadow-color-light: rgba(0, 0, 0, 0.1);
+
+  --background-color-dark: #282c36;
+  --text-color-dark: #e0e0e0;
+  --primary-color-dark: #61dafb;
+  --white-dark: #3a3f4a;
+  --shadow-color-dark: rgba(0, 0, 0, 0.3);
+
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --primary-color: var(--primary-color-light);
+  --white: var(--white-light);
+  --shadow-color: var(--shadow-color-light);
+}
+
+[data-theme="dark"] {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --primary-color: var(--primary-color-dark);
+  --white: var(--white-dark);
+  --shadow-color: var(--shadow-color-dark);
+}
+
 body {
     font-family: 'Georgia', serif; /* Changed font to Georgia for a classic feel */
-    background: linear-gradient(to right, #ffefba, #ffffff); /* Subtle gradient background */
-    color: #333;
+    background-color: var(--background-color); /* Use CSS variable for background */
+    color: var(--text-color); /* Use CSS variable for text color */
     text-align: center;
     padding: 2em;
     margin: 0;
@@ -9,6 +37,19 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body[data-theme="light"] {
+  background: linear-gradient(to right, #ffefba, #ffffff); /* Subtle gradient background */
+}
+
+body[data-theme="dark"] {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
+    radial-gradient(ellipse at top left,    #5a5a8a, transparent),
+    radial-gradient(ellipse at top right,   #8a5a5a, transparent),
+    radial-gradient(ellipse at bottom right, #5a8a5a, transparent),
+    radial-gradient(ellipse at bottom left,  #8a8a5a, transparent);
 }
 
 header {
@@ -19,14 +60,6 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-}
-
-h1 {
-    color: #cc0000; /* Auspicious red */
-    font-size: 3.5em; /* Larger heading */
-    margin-bottom: 0.1em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    letter-spacing: 2px;
 }
 
 h1 + p {
